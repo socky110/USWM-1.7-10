@@ -1,0 +1,15 @@
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+// Add dependencies
+dependencies {
+    // This dependency and its transitive deps will be embedded
+    embed 'my:awesome.dep:1.0'
+    // You can also depend on some jar and not embed it
+    compile 'some.mod:api:1.0'
+}
+
+jar {
+    from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+}

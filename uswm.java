@@ -76,10 +76,8 @@ public class uswm
     	//GameRegistry.register(itemzomb.setRegistryName(midgimon.MODID, "itemzomb"));
     	//blockmidgiball = new BlockFurnace(false){}.setCreativeTab(null).setUnlocalizedName("furnace");
     	//GameRegistry.registerBlock(blockmidgiball, "furnace");
+	EntityRegistry.registerModEntity(EntityLightSaber.class, "EntityLightSaber", 121, MODID, 64, 5, true);
     	//EntityRegistry.registerModEntity(EntityMidgiballB.class, "EntityMidgiballB", 123, MODID, 64, 5, true, 500, -60000);
-    	//EntityRegistry.registerModEntity(EntityMidgiball.class, "EntityMidgiball", 120, MODID, 64, 5, true, 500, -60000);
-    	//EntityRegistry.registerModEntity(EntityMidgiball2.class, "EntityMidgiball2", 121, MODID, 64, 5, true, 500, -300000);
-    	//EntityRegistry.registerModEntity(Midgimon1.class, "Midgimon1", 122, MODID, 64, 4, false, 500, -1000);
     	
     	//GameRegistry.addShapelessRecipe(new ItemStack(betterball, 1), new Object[] {midgiball, Blocks.STONE_BUTTON});
     	//GameRegistry.addRecipe(new ItemStack(beatstick, 1), 
@@ -97,15 +95,10 @@ public class uswm
     @EventHandler
     public void init(FMLInitializationEvent e)
     {
-    	//RenderingRegistry.registerEntityRenderingHandler(Midgimon1.class, new RenderMidgimon(Minecraft.getMinecraft().getRenderManager(), new ModelMidgimon1(), 0.5F){
-		//	@Override
-		//	protected ResourceLocation getEntityTexture(EntityMidgimon entity) {
-		//		return new ResourceLocation(MODID, "textures/entity/Midgimon1.png");
-		//	}
-    	//}); 
-    	MinecraftForgeClient.registerItemRenderer(lightsaber, new IItemRenderer(){
-    		private ModelPig gunmodel;
-    		public ResourceLocation location = new ResourceLocation("textures/entity/pig/pig.png");
+    	MinecraftForgeClient.registerItemRenderer(bluelightsaber, new IItemRenderer(){
+    		private ModelLightSaber model;
+    		protected RenderManager renderManager;
+    		public final ResourceLocation location = new ResourceLocation("uswm:textures/entity/lightsaber2.png");
 			@Override
 			public boolean handleRenderType(ItemStack item, ItemRenderType type) {
 				switch(type)
@@ -123,20 +116,19 @@ public class uswm
 
 			@Override
 			public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-				gunmodel = new ModelPig();
+				model = new ModelLightSaber();
 				switch(type)
 				{
 				case EQUIPPED:
 				{
 				GL11.glPushMatrix();
-				 
 				Minecraft.getMinecraft().renderEngine.bindTexture(location);
 				GL11.glRotatef(0, 0, 0, 0);
-				GL11.glScalef(1.4F, 1.4F, 1.4F);
-				GL11.glTranslatef(0, 3, 0);
+				GL11.glScalef(0.15F, 0.125F, 0.15F);
+				GL11.glTranslatef(3, 4, 0);
 				 
 				 
-				this.gunmodel.render(null, 1F, 1, 1, 1, 1, 1);
+				this.model.render(null, 1F, 1, 1, 1, 1, 1);
 				 
 				GL11.glPopMatrix();
 				 
@@ -144,14 +136,32 @@ public class uswm
 				}
 				case EQUIPPED_FIRST_PERSON:
 				{
-				 
-				}
+					GL11.glPushMatrix();
+					Minecraft.getMinecraft().renderEngine.bindTexture(location);
+					GL11.glRotatef(0, 0, 0, 0);
+					GL11.glScalef(0.15F, 0.125F, 0.15F);
+					GL11.glTranslatef(3, 4, 0);
+					 
+					 
+					this.model.render(null, 1F, 1, 1, 1, 1, 1);
+					 
+					GL11.glPopMatrix();
+					 
+					 
+					}
 				default:
 				break;
 				}
 			}
     		
     	});
+    	RenderingRegistry.registerEntityRenderingHandler(EntityLightSaber.class, new RenderLightSaber(){
+
+			@Override
+			protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+				return new ResourceLocation("uswm:textures/entity/lightsaber2.png");
+			}
+    	}); 
     	//RenderingRegistry.registerEntityRenderingHandler(EntityMidgiball.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), Item.getItemFromBlock(blockmidgiball), Minecraft.getMinecraft().getRenderItem())); 
     	//GameRegistry.register(sound1.setRegistryName(new ResourceLocation("throwablemobs", "BGwalk")));
     	//GameRegistry.register(sound2.setRegistryName(new ResourceLocation("throwablemobs", "bomb")));

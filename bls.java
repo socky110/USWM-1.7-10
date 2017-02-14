@@ -58,11 +58,10 @@ public class bls extends LightSaber{
                 f = 1.0F;
             }
 
-            EntityArrow entityarrow = new EntityArrow(p_77615_2_, p_77615_3_, f * 2.0F);
+            EntityLightSaber entityarrow = new EntityLightSaber(p_77615_2_, p_77615_3_, f * 2.0F);
 
             if (f == 1.0F)
             {
-                entityarrow.setIsCritical(true);
             }
                 entityarrow.setDamage(entityarrow.getDamage() + 1 * 0.5D + 0.5D);
 

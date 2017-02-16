@@ -22,6 +22,7 @@ public class ItemSword extends Item {
    private final Item.ToolMaterial field_150933_b;
    private static final String __OBFID = "CL_00000072";
 
+
    public ItemSword(Item.ToolMaterial p_i45356_1_) {
       this.field_150933_b = p_i45356_1_;
       this.field_77777_bU = 1;
